@@ -1,0 +1,235 @@
+create database sql_cmd;
+use sql_cmd;
+create table emp (id int(20),name varchar(20),salary int(50));
+insert into emp values(1,"neha",10000);
+insert into emp values(2,"manu",20000);
+insert into emp values(3,"lavi",50000);
+select *from emp;
++------+------+--------+
+| id   | name | salary |
++------+------+--------+
+|    1 | neha |  10000 |
+|    2 | manu |  20000 |
+|    3 | lavi |  50000 |
++------+------+--------+
+
+QUES 1.MySQL concatenate
+select id ,concat(id," = ",name) as new_name  from emp;
++------+----------+
+| id   | new_name |
++------+----------+
+|    1 | 1 = neha |
+|    2 | 2 = manu |
+|    3 | 3 = lavi |
++------+----------+
+ 
+QUES 2.MySQL Get Current Date, User, Version
+select current_date();
++----------------+
+| current_date() |
++----------------+
+| 2022-10-03     |
++----------------+
+
+select current_user();
++----------------+
+| current_user() |
++----------------+
+| root@localhost |
++----------------+
+
+select version();
++-----------------+
+| version()       |
++-----------------+
+| 10.4.24-MariaDB |
++-----------------+
+
+QUES 3.MySQL Get Maximum Value.
+select max(salary) from emp;
++-------------+
+| max(salary) |
++-------------+
+|       50000 |
++-------------+
+
+QUES 4.MySQL Administrator
+-NOT RESOLVED
+
+QUES 4.MySQL where clause.
+select salary from emp where salary >15000 ;
++--------+
+| salary |
++--------+
+|  20000 |
+|  50000 |
++--------+
+
+QUES 5.MySQL order by.
+select id,name from emp order by name asc;
++------+------+
+| id   | name |
++------+------+
+|    3 | lavi |
+|    2 | manu |
+|    1 | neha |
++------+------+
+
+select id,name from emp order by name desc;
++------+------+
+| id   | name |
++------+------+
+|    1 | neha |
+|    2 | manu |
+|    3 | lavi |
++------+------+
+
+QUES 6.MySQL get difference between two dates
+ datediff('2022-10-03','2022-09-03');
++------------------------------+
+| datediff(now(),'2022-09-03') |
++------------------------------+
+|                           30 |
++------------------------------+
+
+
+QUES 7. MySQL Pattern Matching
+select name from emp where name like '_a%';
++------+
+| name |
++------+
+| manu |
+| lavi |
++------+
+
+MariaDB [sql_cmd]> select name from emp where name like '%n%';
++------+
+| name |
++------+
+| neha |
+| manu |
++------+
+
+QUES 8.MySQL Regular Expression
+
+<?php
+	$str="using regular expression in php";
+	$var=preg_match_all("/[aeiou]/",$str,$arr);
+	if($var)
+	{
+ 	   	print_r($arr);
+	}
+	else{
+    		echo"pattern not matched ";
+	}
+?>
+
+OUTPUT
+Array ( [0] => Array ( [0] => u [1] => i [2] => e [3] => u [4] => a [5] => e [6] => e [7] => i [8] => o [9] => i ) )
+
+QUES 9.MySQL delete duplicate row.
+-not resolved
+
+QUES 10.MySQL update multiple rows.
+select *from emp;
++------+--------+--------+
+| id   | name   | salary |
++------+--------+--------+
+|    1 | neha   |  10000 |
+|    2 | manu   |  20000 |
+|    3 | lavi   |  50000 |
+|    2 | saavi  |  40000 |
+|    2 | shikha |  24000 |
++------+--------+--------+
+update emp set salary=5000 where id=2;
+
+select *from emp;
++------+--------+--------+
+| id   | name   | salary |
++------+--------+--------+
+|    1 | neha   |  10000 |
+|    2 | manu   |   8000 |
+|    3 | lavi   |  50000 |
+|    2 | saavi  |   8000 |
+|    2 | shikha |   8000 |
++------+--------+--------+
+
+QUES 11.Get nth highest salary using MySQL
+for first highest salary
+select distinct(salary) from emp order by salary desc limit 1;
++--------+
+| salary |
++--------+
+|  50000 |
++--------+
+
+for second highest salary
+select distinct(salary) from emp order by salary desc limit 1,1;
++--------+
+| salary |
++--------+
+|  10000 |
++--------+
+
+for third highest salary
+select distinct(salary) from emp order by salary desc limit 2,1;
++--------+
+| salary |
++--------+
+|   8000 |
++--------+
+
+QUES 12.Display the nth row from MySQL.
+-displaying 4th row 
+select *from emp limit 3,1;
++------+-------+--------+
+| id   | name  | salary |
++------+-------+--------+
+|    2 | saavi |   8000 |
++------+-------+--------+
+
+QUES 13.Commit and rollback in mysql
+SET AUTOCOMMIT=0;
+insert into emp values(5,"parnt",33000);
+select *from emp;
++------+--------+--------+
+| id   | name   | salary |
++------+--------+--------+
+|    1 | neha   |  10000 |
+|    2 | manu   |   8000 |
+|    3 | lavi   |  50000 |
+|    2 | saavi  |   8000 |
+|    2 | shikha |   8000 |
+|    5 | parnt  |  33000 |
++------+--------+--------+
+
+rollback;
+select *from emp;
++------+--------+--------+
+| id   | name   | salary |
++------+--------+--------+
+|    1 | neha   |  10000 |
+|    2 | manu   |   8000 |
+|    3 | lavi   |  50000 |
+|    2 | saavi  |   8000 |
+|    2 | shikha |   8000 |
++------+--------+--------+
+
+QUES 14.MySQL SELECT top 5
+select *from emp limit 5;
++------+--------+--------+
+| id   | name   | salary |
++------+--------+--------+
+|    1 | neha   |  10000 |
+|    2 | manu   |   8000 |
+|    3 | lavi   |  50000 |
+|    2 | saavi  |   8000 |
+|    2 | shikha |   8000 |
++------+--------+--------+
+
+
+
+
+
+
+
