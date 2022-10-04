@@ -85,13 +85,12 @@ select id,name from emp order by name desc;
 +------+------+
 
 QUES 6.MySQL get difference between two dates
- datediff('2022-10-03','2022-09-03');
-+------------------------------+
-| datediff(now(),'2022-09-03') |
-+------------------------------+
-|                           30 |
-+------------------------------+
-
+select datediff('2022-10-01','2022-09-01') as days;
++------+
+| days |
++------+
+|   30 |
++------+
 
 QUES 7. MySQL Pattern Matching
 select name from emp where name like '_a%';
@@ -111,21 +110,48 @@ MariaDB [sql_cmd]> select name from emp where name like '%n%';
 +------+
 
 QUES 8.MySQL Regular Expression
+select *from emp;
++------+--------+--------+
+| id   | name   | salary |
++------+--------+--------+
+|    1 | neha   |  10000 |
+|    2 | manu   |   8000 |
+|    3 | lavi   |  50000 |
+|    2 | saavi  |   8000 |
+|    2 | shikha |   8000 |
++------+--------+--------+
+select name from emp where name regexp "^s";
++--------+
+| name   |
++--------+
+| saavi  |
+| shikha |
++--------+
 
-<?php
-	$str="using regular expression in php";
-	$var=preg_match_all("/[aeiou]/",$str,$arr);
-	if($var)
-	{
- 	   	print_r($arr);
-	}
-	else{
-    		echo"pattern not matched ";
-	}
-?>
+select name from emp where name regexp "vi$";
++-------+
+| name  |
++-------+
+| lavi  |
+| saavi |
++-------+
 
-OUTPUT
-Array ( [0] => Array ( [0] => u [1] => i [2] => e [3] => u [4] => a [5] => e [6] => e [7] => i [8] => o [9] => i ) )
+select name from emp where name regexp "^[a-n]";
++------+
+| name |
++------+
+| neha |
+| manu |
+| lavi |
++------+
+
+select name from emp where name regexp "neha|shikha";
++--------+
+| name   |
++--------+
+| neha   |
+| shikha |
++--------+
 
 QUES 9.MySQL delete duplicate row.
 -not resolved
